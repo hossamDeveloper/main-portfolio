@@ -5,7 +5,7 @@ import { SkeletonUtils } from 'three-stdlib'
 
 export function Bird(props) {
   const group = React.useRef()
-  const { scene, animations } = useGLTF('./public/assets/bird.glb')
+  const { scene, animations } = useGLTF('./assets/bird.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
   const { actions } = useAnimations(animations, group)
