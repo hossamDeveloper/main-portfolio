@@ -10,3 +10,4 @@ html{
   @apply bg-gradient-to-b from-[#12071f] to-[#2f204e] text-white font-['Roboto','sans-serif'] min-h-[100vh]   duration-500 scroll-smooth snap-mandatory snap-y overflow-x-hidden;
  
 }
+

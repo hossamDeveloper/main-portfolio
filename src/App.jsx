@@ -1,27 +1,86 @@
-import Contact from "./Components/Contact/Contact"
-import Hero from "./Components/Hero/Hero"
-import Portfolio from "./Components/Portfolio/Portfolio"
-import Services from "./Components/Services/Services"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { lazy, Suspense, useEffect, useCallback } from "react"
+import Loading from "./Components/Loading/Loading"
+
+// Lazy load components with preload
+const Contact = lazy(() => import("./Components/Contact/Contact"))
+const Hero = lazy(() => import("./Components/Hero/Hero"))
+const Portfolio = lazy(() => import("./Components/Portfolio/Portfolio"))
+const Services = lazy(() => import("./Components/Services/Services"))
+
+// Preload components
+const preloadComponents = () => {
+  const components = [
+    import("./Components/Contact/Contact"),
+    import("./Components/Hero/Hero"),
+    import("./Components/Portfolio/Portfolio"),
+    import("./Components/Services/Services")
+  ]
+  
+  return Promise.all(components.map(component => 
+    component.catch(() => {
+      // Handle error silently
+    })
+  ))
+}
 
 function App() {
+  const handleScroll = useCallback((e) => {
+    e.preventDefault()
+    const target = e.target
+    if (target.scrollTop === 0) {
+      target.scrollTop = 1
+    } else if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+      target.scrollTop = target.scrollHeight - target.clientHeight - 1
+    }
+  }, [])
+
+  useEffect(() => {
+    // Start preloading components after initial render
+    const preloadTimeout = setTimeout(preloadComponents, 1000)
+    
+    // Add scroll event listener
+    const mainContainer = document.querySelector('.main-container')
+    if (mainContainer) {
+      mainContainer.addEventListener('scroll', handleScroll, { passive: false })
+    }
+
+    return () => {
+      clearTimeout(preloadTimeout)
+      if (mainContainer) {
+        mainContainer.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [handleScroll])
 
   return (
-    <>
-      <div className="pb-10">
-        <section id="#home" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5 ">
-          <Hero />
-        </section>
-        <section id="#services" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
-          <Services />
-        </section>
-        <Portfolio />
-        <section id="#contact" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
-          <Contact />
-        </section>
-      </div>
-
-
-    </>
+    <Router>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={
+            <div 
+              className="main-container pb-10 snap-y snap-mandatory h-screen overflow-y-auto scroll-smooth"
+              style={{ 
+                scrollBehavior: 'smooth',
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'contain'
+              }}
+            >
+              <section id="home" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+                <Hero />
+              </section>
+              <section id="services" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+                <Services />
+              </section>
+              <Portfolio />
+              <section id="contact" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+                <Contact />
+              </section>
+            </div>
+          } />
+        </Routes>
+      </Suspense>
+    </Router>
   )
 }
 

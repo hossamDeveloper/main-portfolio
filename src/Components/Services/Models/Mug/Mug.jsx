@@ -2,7 +2,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Mug(props) {
-  const { nodes, materials } = useGLTF('./public/assets/mug.glb')
+  const { nodes, materials } = useGLTF('./assets/mug.glb')
   return (
     <group {...props} dispose={null}>
       <group position={[-6.56, -15, 0]} rotation={[Math.PI / 2, 0, Math.PI]} scale={0.033}>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Phone(props) {
-  const { nodes, materials } = useGLTF('./public/assets/phone.glb')
+  const { nodes, materials } = useGLTF('./assets/phone.glb')
   
   return (
     <group {...props} dispose={null}>

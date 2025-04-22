@@ -1,13 +1,17 @@
 import { Canvas } from '@react-three/fiber'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { OrbitControls, PerspectiveCamera, Stage } from '@react-three/drei'
 import { Phone } from './Phone'
 
-const PhoneContainer = () => {
+const PhoneContainer = ({ onLoad }) => {
+    useEffect(() => {
+        onLoad?.()
+    }, [onLoad])
+
     return (
-        <>
+        <div className="w-full h-full">
             <Canvas>
-                <Suspense fallback={'loading.....'}>
+                <Suspense fallback={null}>
                     <Stage environment={'forest'} intensity={10}>
                         <Phone />
                     </Stage>
@@ -15,7 +19,7 @@ const PhoneContainer = () => {
                     <PerspectiveCamera makeDefault position={[3, .5, 5]} zoom={.7} />
                 </Suspense>
             </Canvas>
-        </>
+        </div>
     )
 }
 

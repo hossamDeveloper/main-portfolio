@@ -1,12 +1,17 @@
 import { Canvas } from '@react-three/fiber'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { OrbitControls, PerspectiveCamera, Stage } from '@react-three/drei'
 import { Mug } from './Mug'
-const MugContainer = () => {
+
+const MugContainer = ({ onLoad }) => {
+    useEffect(() => {
+        onLoad?.()
+    }, [onLoad])
+
     return (
-        <>
+        <div className="w-full h-full">
             <Canvas>
-                <Suspense fallback={'loading.....'}>
+                <Suspense fallback={null}>
                     <Stage environment={'forest'} intensity={.1}>
                         <Mug />
                     </Stage>
@@ -14,7 +19,7 @@ const MugContainer = () => {
                     <PerspectiveCamera makeDefault position={[3, 1, 5]} zoom={.6} />
                 </Suspense>
             </Canvas>
-        </>
+        </div>
     )
 }
 
