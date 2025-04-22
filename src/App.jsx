@@ -66,14 +66,14 @@ function App() {
                 overscrollBehavior: 'contain'
               }}
             >
-              <section id="home" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+              <section id="home" className="h-screen snap-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
                 <Hero />
               </section>
-              <section id="services" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+              <section id="services" className="h-screen snap-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
                 <Services />
               </section>
               <Portfolio />
-              <section id="contact" className="h-screen snap-center xl:px-32 lg:px-24 md:px-16 sm:px-10 px-5">
+              <section id="contact" className="h-screen snap-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
                 <Contact />
               </section>
             </div>

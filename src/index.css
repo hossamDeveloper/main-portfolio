@@ -3,11 +3,89 @@
 @tailwind components;  
 @tailwind utilities;
 
+html {
+  @apply bg-gradient-to-b from-[#12071f] to-[#2f204e] text-white font-['Roboto','sans-serif'] min-h-[100vh] duration-500 scroll-smooth snap-mandatory snap-y overflow-x-hidden;
+}
 
+/* Responsive Typography */
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  
+  @screen xs {
+    html {
+      font-size: 14px;
+    }
+  }
+  
+  @screen sm {
+    html {
+      font-size: 15px;
+    }
+  }
+  
+  @screen md {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  @screen lg {
+    html {
+      font-size: 17px;
+    }
+  }
+  
+  @screen xl {
+    html {
+      font-size: 18px;
+    }
+  }
+  
+  @screen 2xl {
+    html {
+      font-size: 19px;
+    }
+  }
+}
 
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
 
-html{
-  @apply bg-gradient-to-b from-[#12071f] to-[#2f204e] text-white font-['Roboto','sans-serif'] min-h-[100vh]   duration-500 scroll-smooth snap-mandatory snap-y overflow-x-hidden;
- 
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile First Media Queries */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
